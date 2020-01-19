@@ -3,6 +3,7 @@ using System.Reflection;
 using System.Collections.Generic;
 
 using UnityEngine;
+using UnityEditor;
 
 public struct MyTestStruct
 {
@@ -24,8 +25,16 @@ public struct MyTestStruct_WithConstructor
 
 public enum MyEnum
 {
+	// InspectorNameAttribute inaccessible due to its protection level?
+	//[InspectorName("NONE_InspectName")]
 	None = 0,
+
+	// InspectorNameAttribute inaccessible due to its protection level?
+	//[CoreModule.InspectorName("FIRST_InspectName")]
 	First,
+
+	// InspectorNameAttribute inaccessible due to its protection level?
+	//[CoreModule.InspectorName("SECOND_InspectName")]
 	Second,
 };
 
@@ -37,10 +46,34 @@ public enum MyEnumFlags
 	Second = 1 << 1,
 };
 
+
+[AddComponentMenu("Test/MyTests/MyScript")]
 public class MyScript : MonoBehaviour
 {
+	#region Simple C# types - hiding from inspector
+	[Header("Simple C# types - hiding from inspector")]
+	// Works just fine
+	[HideInInspector]
+	public string MyStrHiddenInInspector;
+	// Works just fine
+	[HideInInspector]
+	public int MyIntHiddenInInspector;
+	#endregion // Simple C# types - hiding from inspector
+
+	#region text types
+	[Header("Text types")]
+	[TextArea]
+	public string MyTextArea;
+	#endregion // text types
+	
+	#region integer types
+	[Header("Integer types")]
+	[RangeAttribute(1, 5)]
+	public int CountInRange = 3;
+	#endregion // integer types
 
 	#region Simple C# types
+	[Header("Simple C# types")]
 	public byte MyByte;
 	public sbyte MySignedByte;
 	public int MyInt;
@@ -137,6 +170,10 @@ public class MyScript : MonoBehaviour
 	public Behaviour MyBehaviour;
 	// MonoBehaviour: Allows to select game object in scene and AUTOMATICALLY choses its SCRIPT
 	public MonoBehaviour MyMonoBehaviour;
+
+	// Are behaviour-derived abstract classes shown up in inspector?
+	// YES shown!
+	public MyAbstractClassBehaviour MyAbstractBehaviour;
 	#endregion // Unity
 
 	// Type: NOT accessible
