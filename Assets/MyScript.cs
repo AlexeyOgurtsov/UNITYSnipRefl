@@ -5,7 +5,27 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEditor;
 
+public class MyTestClass
+{
+	public string testClass_String;
+	public int testClass_int;
+}
+
+[Serializable]
+public class MySerializableTestClass
+{
+	public string testClass_String;
+	public int testClass_int;
+}
+
 public struct MyTestStruct
+{
+	public string MyString;
+	string MyName_private;
+};
+
+[Serializable]
+public struct MySerializedTestStruct
 {
 	public string MyString;
 	string MyName_private;
@@ -120,10 +140,21 @@ public class MyScript : MonoBehaviour
 	public UnityEngine.Events.UnityEvent MyUnityEvent;
 	#endregion // Delegates
 
+
+	#region classes
+	// WARNING 1!!! ONLY objects of classes marked as [Serializable] are shown up in the inspector!
+	// WARNING 2!!! NO initialization is necessary (= new MyTest()) - classes will be initialized automatically!
+	public MyTestClass TestClass;
+	public MySerializableTestClass SerializableClass;
+	public MyTestClass InitializerTestClass = new MyTestClass();
+	public MySerializableTestClass InitializedSerializableClass = new MySerializableTestClass();
+	#endregion // classes
+
 	#region structs
-	// Structs are NOT shown UP!!!
+	// ONLY structs marked with [Serializable] attribute are shown up in the inspector!
 	public MyTestStruct MyStruct;
 	public MyTestStruct_WithConstructor MyStruct_WithConstructor;
+	public MySerializedTestStruct MySerializedStruct;
 	#endregion
 
 	#region enums

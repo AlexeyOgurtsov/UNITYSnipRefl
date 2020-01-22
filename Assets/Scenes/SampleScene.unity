@@ -256,6 +256,14 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.Events.UnityEvent, UnityEngine.CoreModule, Version=0.0.0.0,
       Culture=neutral, PublicKeyToken=null
+  SerializableClass:
+    testClass_String: 23
+    testClass_int: 1235
+  InitializedSerializableClass:
+    testClass_String: 1235
+    testClass_int: 1235
+  MySerializedStruct:
+    MyString: 
   MyEnum: 1
   MyEnumFlags: 2
   MyVec3: {x: 0, y: 0, z: 0}
